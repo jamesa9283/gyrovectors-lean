@@ -1,37 +1,11 @@
-## Welcome to GitHub Pages
+# Gyrovector spaces and groups
 
-You can use the [editor on GitHub](https://github.com/jamesa9283/gyrovectors-lean/edit/gh-pages/index.md) to maintain and preview the content for your website in Markdown files.
+This is a package, currently under production, that allow the use of gyrovectors and gyrogroups in lean. These can be used to define general relativity, and they will be, eventually (my lecturers will be proud I'm finally doing some applied mathematics).
 
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
+## What am I currently working on?
 
-### Markdown
+Look at my project board, it should be kept _relatively_ up to date. If you feel the need to note the lack of up-to-dateness, find me on twitter or the zulip chat (its where I can usually be found).
 
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
+## General Relativity in lean
 
-```markdown
-Syntax highlighted code block
-
-# Header 1
-## Header 2
-### Header 3
-
-- Bulleted
-- List
-
-1. Numbered
-2. List
-
-**Bold** and _Italic_ and `Code` text
-
-[Link](url) and ![Image](src)
-```
-
-For more details see [GitHub Flavored Markdown](https://guides.github.com/features/mastering-markdown/).
-
-### Jekyll Themes
-
-Your Pages site will use the layout and styles from the Jekyll theme you have selected in your [repository settings](https://github.com/jamesa9283/gyrovectors-lean/settings). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
-
-### Support or Contact
-
-Having trouble with Pages? Check out our [documentation](https://docs.github.com/categories/github-pages-basics/) or [contact support](https://github.com/contact) and we’ll help you sort it out.
+Yes, thats what I thought. It sounds so very cool right? Once I've started this part of the project I'll write more about what exactly I'm doing with it.
