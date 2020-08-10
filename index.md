@@ -8,4 +8,4 @@ Look at my project board, it should be kept _relatively_ up to date. If you feel
 
 ## General Relativity in lean
 
-Yes, thats what I thought. It sounds so very cool right? Once I've started this part of the project I'll write more about what exactly I'm doing with it.
+Yes, thats what I thought. It sounds so very cool right? Once I've started this part of the project I'll write more about what exactly I'm doing with it. As I am an applied mathematician and once was an aspiring physicist I'd like to see more of this stuff in lean, so I thought that I'd do it myself!
