@@ -92,7 +92,7 @@ attribute [pattern] has_gyrop.gyrop
 
 #check has_gyrop
 
---lemma gyrop_add : 0 ⊙ a := sorry
+lemma gyrop_add : 0 ⊙ a := sorry
 
 
 
