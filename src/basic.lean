@@ -112,9 +112,6 @@ class gyrogroup (G : Type) extends has_gyrop G,  has_neggyrop G, has_zero G :=
 -- axiom 5: gyr a b = gyr (a + b) b
 (gyr_loop : ∀ a b, gyr a b = gyr (a ⊙ b) b)
 
-
-#exit
-
 -- axiom 4 has been removed and is going to be a seperate function, see below
 variables (G : Type) [gyrogroup G]
 variables (a b c d : G)
