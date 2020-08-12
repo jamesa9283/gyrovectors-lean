@@ -81,44 +81,42 @@ the gyrooperation of G.
 (G5) gyr[a, b] = gyr[a⊕b, b]
 -/
 
+class has_gyrop        (α : Type u) := (gyrop : α → α → α)
+class has_neggyrop     (α : Type u) := (neggyrop : α → α → α)
+class has_cogyrop      (α : Type u) := (cogyrop : α → α → α)
+class has_negcogyrop      (α : Type u) := (negcogyrop : α → α → α)
 
-class has_gyrop        (α : Type u) := (gyrop : α → α → Prop)
-class has_cogyrop      (α : Type u) := (cogyrop : α → α → Prop)
+infix `⊙`:75 := has_gyrop.gyrop
+infix `⊝`:75 := has_neggyrop.neggyrop
+infix `⊞`:80 := has_cogyrop.cogyrop
+infix `⊟`:80 := has_negcogyrop.negcogyrop -- what a long name
 
-notation `⊙` := has_gyrop.gyrop
-notation `⊞` := has_cogyrop.cogyrop
-
-attribute [pattern] has_gyrop.gyrop
-
-#check has_gyrop
-
-lemma gyrop_add : 0 ⊙ a := sorry
-
+--#check has_gyrop
 
 
-class gyrogroup (G : Type) extends has_add G, has_neg G, has_zero G :=
+class gyrogroup (G : Type) extends has_gyrop G, has_neggyrop G, has_zero G :=
 -- axiom 1: 0 ⊕ a = a
-(zero_add : ∀ (a : G), 0 + a = a)
+(zero_add : ∀ (a : G), 0 ⊙ a = a)
 -- axiom 2: ⊖a⊕a = 0
-(add_left_neg : ∀ (a : G), -a + a = 0)
+(add_left_neg : ∀ (a : G), ⊝a ⊙ a = 0)
 (gyr : G → G → G → G) -- gyr a b c is gyr[a, b]c in the notation from the Wiki
 -- axiom 3: ∀ a b c ∈ G, a + (b + c) = (a + b) + gyr a b c
-(add_gyr_assoc : ∀ a b c, a + (b + c) = (a + b) + gyr a b c)
-(add_gyr_assoc' : ∀ a b c d, a + (b + c) = (a + b) + d → d = gyr a b c) -- uniqueness
+(add_gyr_assoc : ∀ a b c, a ⊙ (b ⊙ c) = (a ⊙ b) ⊙ gyr a b c)
+(add_gyr_assoc' : ∀ a b c d, a ⊙ (b ⊙ c) = (a ⊙ b) ⊙ d → d = gyr a b c) -- uniqueness
 -- axiom 5: gyr a b = gyr (a + b) b
-(gyr_loop : ∀ a b, gyr a b = gyr (a + b) b)
+(gyr_loop : ∀ a b, gyr a b = gyr (a ⊙ b) b)
+
 
 -- axiom 4 has been removed and is going to be a seperate function, see below
 variables (G : Type) [gyrogroup G]
 variables (a b c d : G)
 open gyrogroup
 
-
 -- #check (a : G)
 
 -- axiom 4: gyr a b ∈ Aut(G, ⊕)
 axiom gyr_a_b_zero (a b : G): gyr a b 0 = 0
-axiom gyr_distrib : gyr a b (c + d) = gyr a b c + gyr a b d
+axiom gyr_distrib : gyr a b (c ⊙ d) = gyr a b c ⊙ gyr a b d
 
 /-?
 A gyrogroup (G, ⊕) is gyrocommutative if its binary operation obeys the gyrocommutative law
@@ -170,7 +168,7 @@ b = c (by (1) )
 
 -/
 
-lemma gyro_equal : b = c → a + b = a + c :=
+lemma gyro_equal : b = c → a ⊙ b = a ⊙ c :=
 begin
   intros fbc,
   rw fbc, 
