@@ -82,19 +82,25 @@ the gyrooperation of G.
 -/
 
 class has_gyrop        (α : Type u) := (gyrop : α → α → α)
-class has_neggyrop     (α : Type u) := (neggyrop : α → α → α)
+class has_subgyrop     (α : Type u) := (subgyrop : α → α → α)
+class has_neggyrop     (α : Type u) := (neggyrop : α → α)
 class has_cogyrop      (α : Type u) := (cogyrop : α → α → α)
-class has_negcogyrop      (α : Type u) := (negcogyrop : α → α → α)
+class has_subcogyrop      (α : Type u) := (subcogyrop : α → α → α)
+class has_negcogyrop      (α : Type u) := (negcogyrop : α → α)
 
 infix `⊙`:75 := has_gyrop.gyrop
-infix `⊝`:75 := has_neggyrop.neggyrop
+infix `⊝`:75 := has_subgyrop.subgyrop
+prefix `⊝`:85 := has_neggyrop.neggyrop
 infix `⊞`:80 := has_cogyrop.cogyrop
-infix `⊟`:80 := has_negcogyrop.negcogyrop -- what a long name
+infix `⊟`:80 := has_subcogyrop.subcogyrop -- what a long name
+infix `⊟`:85 := has_negcogyrop.negcogyrop
 
 --#check has_gyrop
 
+#check has_neggyrop.neggyrop
 
-class gyrogroup (G : Type) extends has_gyrop G, has_neggyrop G, has_zero G :=
+
+class gyrogroup (G : Type) extends has_gyrop G,  has_neggyrop G, has_zero G :=
 -- axiom 1: 0 ⊕ a = a
 (zero_add : ∀ (a : G), 0 ⊙ a = a)
 -- axiom 2: ⊖a⊕a = 0
@@ -106,6 +112,8 @@ class gyrogroup (G : Type) extends has_gyrop G, has_neggyrop G, has_zero G :=
 -- axiom 5: gyr a b = gyr (a + b) b
 (gyr_loop : ∀ a b, gyr a b = gyr (a ⊙ b) b)
 
+
+#exit
 
 -- axiom 4 has been removed and is going to be a seperate function, see below
 variables (G : Type) [gyrogroup G]
