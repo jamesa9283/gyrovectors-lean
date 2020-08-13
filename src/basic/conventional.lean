@@ -1,5 +1,5 @@
-import category_theory.endomorphism
-
+import tactic
+ 
 
 noncomputable theory
 open_locale classical
@@ -23,7 +23,6 @@ Since a gyrogroup has inverses and an identity it qualifies as a quasigroup and 
 Gyrogroups are a generalization of groups. Every group is an example of a gyrogroup with gyr defined as the identity map.
 -/
 
-open category_theory
 
 /-?
 Magma, which may be called a groupoid by different people.
@@ -38,7 +37,7 @@ an element −a ∈ G, called a left inverse of a, satisfying
                                  *(G3) (a + b) + c = a + (b + c) for all a, b, c ∈ G*.
 
 -/
-class magma (S : Type) extends has_add S, has_neg S, has_zero S :=
+class magma_not (S : Type) extends has_add S, has_neg S, has_zero S :=
 -- axiom 1: ∀ a ∃ 0, 0 + a = a
 (zero_add: ∀ (a : S), 0 + a = a)
 -- axiom 2: ∀ a ∃ -a, -a + a = 0
@@ -69,12 +68,16 @@ class has_cogyrop      (α : Type u) := (cogyrop : α → α → α)
 class has_subcogyrop      (α : Type u) := (subcogyrop : α → α → α)
 class has_negcogyrop      (α : Type u) := (negcogyrop : α → α)
 
-infix `⊙`:75 := has_gyrop.gyrop
-infix `⊝`:75 := has_subgyrop.subgyrop
-prefix `⊝`:65 := has_neggyrop.neggyrop
-infix `⊞`:80 := has_cogyrop.cogyrop
-infix `⊟`:80 := has_subcogyrop.subcogyrop -- what a long name
-infix `⊟`:85 := has_negcogyrop.negcogyrop
+#print notation -
+
+infix ` ⊙ `:75 := has_gyrop.gyrop
+infix ` ⊝ `:65 := has_subgyrop.subgyrop
+prefix ` ⊝ `:75 := has_neggyrop.neggyrop
+infix ` ⊞ `:80 := has_cogyrop.cogyrop
+infix ` ⊟ `:80 := has_subcogyrop.subcogyrop -- what a long name
+prefix ` ⊟ `:85 := has_negcogyrop.negcogyrop
+
+#print notation ⊝
 
 --#check a ⊝ b
 

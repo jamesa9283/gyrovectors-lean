@@ -19,11 +19,6 @@ the gyrooperation of G.
 (G5) gyr[a, b] = gyr[a⊕b, b]
 -/
 
---#check has_gyrop
-
---check has_neggyrop.neggyrop
-
-
 class gyrogroup (G : Type) extends has_gyrop G, has_subgyrop G, has_neggyrop G, has_zero G :=
 -- axiom 1: 0 ⊕ a = a
 (zero_gyro : ∀ (a : G), 0 ⊙ a = a)
@@ -32,19 +27,21 @@ class gyrogroup (G : Type) extends has_gyrop G, has_subgyrop G, has_neggyrop G, 
 (gyr : G → G → G → G) -- gyr a b c is gyr[a, b]c in the notation from the Wiki
 -- axiom 3: ∀ a b c ∈ G, a + (b + c) = (a + b) + gyr a b c
 (add_gyr_assoc : ∀ a b c, a ⊙ (b ⊙ c) = (a ⊙ b) ⊙ gyr a b c)
-(add_gyr_assoc' : ∀ a b c d, a ⊙ (b ⊙ c) = (a ⊙ b) ⊙ d → d = gyr a b c) -- uniqueness
+(add_gyr_assoc_inj : ∀ a b c d, a ⊙ (b ⊙ c) = (a ⊙ b) ⊙ d → d = gyr a b c) -- uniqueness
+-- axiom 4: gyr a b ∈ Aut (G, ⊙) 
+(gyr_bijective : ∀ a b, function.bijective (gyr a b))
+(map_gyrop : ∀ a b c d, gyr a b (c ⊙ d) = gyr a b c ⊙ gyr a b d )
 -- axiom 5: gyr a b = gyr (a + b) b
 (gyr_loop : ∀ a b, gyr a b = gyr (a ⊙ b) b)
 
 -- axiom 4 has been removed and is going to be a seperate function, see below
 variables (G : Type) [gyrogroup G]
 variables (a b c d : G)
-namespace gyrogroup
 
--- #check (a : G)
-
--- axiom 4: gyr a b ∈ Aut(G, ⊕)
-axiom gyr_a_b_zero (a b : G): gyr a b 0 = 0
-axiom gyr_distrib : gyr a b (c ⊙ d) = gyr a b c ⊙ gyr a b d
-
-end gyrogroup
+@[simp] lemma zero_gyro : ∀ (a : G), 0 ⊙ a = a := gyrogroup.zero_gyro
+@[simp] lemma gyr_add_left_neg : ∀ (a : G), ⊝a ⊙ a = 0 := gyrogroup.gyr_add_left_neg
+lemma add_gyr_assoc : ∀ (a b c : G), a ⊙ (b ⊙ c) = (a ⊙ b) ⊙ gyrogroup.gyr a b c := gyrogroup.add_gyr_assoc
+lemma add_gyr_assoc_inj : ∀ (a b c d : G), a ⊙ (b ⊙ c) = (a ⊙ b) ⊙ d → d = gyrogroup.gyr a b c := gyrogroup.add_gyr_assoc_inj 
+lemma gyr_bijective : ∀ (a b : G), function.bijective (gyrogroup.gyr a b) := gyrogroup.gyr_bijective
+@[simp] lemma map_gyrop : ∀ (a b c d : G), gyrogroup.gyr a b (c ⊙ d) = gyrogroup.gyr a b c ⊙ gyrogroup.gyr a b d  := gyrogroup.map_gyrop
+@[simp] lemma gyr_loop : ∀ (a b : G), gyrogroup.gyr a b = gyrogroup.gyr (a ⊙ b) b := gyrogroup.gyr_loop
