@@ -1,4 +1,4 @@
-import basic.conventional basic.comm tactic
+import basic.conventional basic.comm
 
 variables (C : Type) [gyrocomm_gyrogroup C]
 variables (a b c d : C)
@@ -12,12 +12,22 @@ begin
 end
 
 
-lemma gyrocomm_equal : a ⊙ b = a ⊙ c → b = c :=
+/-
+a + b = a + c
+
+-/
+
+lemma gyrocomm_equal : a ⊙ b = a ⊙ c ↔ b = c :=
 begin
-  intros fabc,
-  rw ←zero_gyro (a⊙b) at fabc,
-  sorry
-  --have H: ⊝a ⊙ (a ⊙ b) = ⊝a ⊙ (a ⊙ c),
+  split,
+  {
+    intros fabc,
+    
+  },
+  {
+    intros fbc,
+    rw fbc,
+  }
 end
 
 
